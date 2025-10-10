@@ -62,15 +62,23 @@ class ProjectResource extends Resource
                             ->maxFiles(10)
                             ->acceptedFileTypes(['image/*', 'video/*'])
                             ->helperText('Upload images or videos for this project'),
+
+                        SpatieMediaLibraryFileUpload::make('logo')
+                            ->label('Logo')
+                            ->collection('project_logo')
+                            ->acceptedFileTypes(['image/*'])
+                            ->helperText('Upload logo for this project'),
                     ]),
 
                 Forms\Components\Section::make('Specifications')
+                    ->description('Add technical specifications or key features of the project (e.g., Technology: Laravel, Platform: Web, Duration: 3 months)')
                     ->schema([
                         Forms\Components\KeyValue::make('specifications')
                             ->keyLabel('Property')
                             ->valueLabel('Value')
                             ->reorderable()
                             ->addActionLabel('Add specification')
+                            ->helperText('Examples: Technology → Laravel, Platform → Web/Mobile, Industry → Healthcare, Year → 2024')
                             ->columnSpanFull(),
                     ]),
             ]);

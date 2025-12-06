@@ -123,4 +123,12 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'phone' => env('PYRAVEN_PHONE_NUMBER', '+201234567890'),
+    'email' => env('PYRAVEN_EMAIL', 'support@pyraven.com'),
+
+    'social_media' => [
+        'facebook_url' => env('PYRAVEN_FACEBOOK_URL', 'https://www.facebook.com/pyraven'),
+        'instagram_url' => env('PYRAVEN_INSTAGRAM_URL', 'https://www.instagram.com/pyraven'),
+        'linkedin_url' => env('PYRAVEN_LINKEDIN_URL', 'https://www.linkedin.com/company/pyraven'),
+    ],
 ];

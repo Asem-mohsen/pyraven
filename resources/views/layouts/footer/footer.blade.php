@@ -1,18 +1,17 @@
 <footer class="footer footer-style-4">
     <div class="container">
       <div class="widget-wrapper">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="footer-widget wow fadeInUp" data-wow-delay=".2s">
               <div class="logo">
                 <a href="{{ route('home') }}"> <img src="{{ asset('assets/img/logo/blue-logo-transparent.png') }}" alt="Pyraven Software Company"> </a>
               </div>
-              <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis nulla placerat amet amet congue.</p>
+              <p class="desc">Pyraven is your trusted partner in custom web and mobile app development. We build scalable, innovative solutions that drive business growth and deliver exceptional user experiences.</p>
               <ul class="socials">
-                <li> <a href="#"> <i class="lni lni-facebook-filled"></i> </a> </li>
-                <li> <a href="#"> <i class="lni lni-twitter-filled"></i> </a> </li>
-                <li> <a href="#"> <i class="lni lni-instagram-filled"></i> </a> </li>
-                <li> <a href="#"> <i class="lni lni-linkedin-original"></i> </a> </li>
+                <li> <a href="{{ config('app.social_media.facebook_url') }}" target="_blank"> <i class="lni lni-facebook-filled"></i> </a> </li>
+                <li> <a href="{{ config('app.social_media.instagram_url') }}" target="_blank"> <i class="lni lni-instagram-filled"></i> </a> </li>
+                <li> <a href="{{ config('app.social_media.linkedin_url') }}" target="_blank"> <i class="lni lni-linkedin-original"></i> </a> </li>
               </ul>
             </div>
           </div>
@@ -23,7 +22,7 @@
                 <li> <a href="{{ route('home') }}">Home</a> </li>
                 <li> <a href="#about">About</a> </li>
                 <li> <a href="#feature">Service</a> </li>
-                <li> <a href="#testimonial">Testimonial</a> </li>
+                {{-- <li> <a href="#testimonial">Testimonial</a> </li> --}}
                 <li> <a href="#contact">Contact</a> </li>
               </ul>
             </div>
@@ -41,18 +40,21 @@
           </div>
           <div class="col-xl-3 col-lg-3 col-md-6">
             <div class="footer-widget wow fadeInUp" data-wow-delay=".5s">
-              <h6>Download App</h6>
-              <ul class="download-app">
+              <h6>Get In Touch</h6>
+              <ul class="links">
                 <li>
-                  <a href="#0">
-                    <span class="icon"><i class="lni lni-apple"></i></span>
-                    <span class="text">Download on the <b>App Store</b> </span>
+                  <a href="mailto:{{ config('app.email') }}">
+                    <i class="lni lni-envelope"></i> {{ config('app.email') }}
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
-                    <span class="icon"><i class="lni lni-play-store"></i></span>
-                    <span class="text">GET IT ON <b>Play Store</b> </span>
+                  <a href="tel:{{ config('app.phone') }}">
+                    <i class="lni lni-phone"></i> {{ config('app.phone') }}
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('home') }}#contact">
+                    <i class="lni lni-map-marker"></i> Contact Us
                   </a>
                 </li>
               </ul>

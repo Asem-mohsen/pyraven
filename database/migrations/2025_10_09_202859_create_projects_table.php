@@ -18,6 +18,8 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->integer('order')->default(0);
             $table->json('specifications')->nullable();
+            $table->string('url')->nullable();
+            $table->string('github_url')->nullable();
             $table->timestamps();
         });
     }

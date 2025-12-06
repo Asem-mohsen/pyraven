@@ -70,6 +70,17 @@ class ProjectResource extends Resource
                             ->helperText('Upload logo for this project'),
                     ]),
 
+                Forms\Components\Section::make('Project URLs')
+                    ->schema([
+                        Forms\Components\TextInput::make('url')
+                            ->label('Website URL')
+                            ->url()
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('github_url')
+                            ->label('GitHub URL')
+                            ->url()
+                            ->columnSpanFull(),
+                    ]),
                 Forms\Components\Section::make('Specifications')
                     ->description('Add technical specifications or key features of the project (e.g., Technology: Laravel, Platform: Web, Duration: 3 months)')
                     ->schema([

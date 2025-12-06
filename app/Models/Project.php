@@ -17,6 +17,8 @@ class Project extends Model implements HasMedia
         'is_active',
         'order',
         'specifications',
+        'url',
+        'github_url',
     ];
 
     protected $casts = [

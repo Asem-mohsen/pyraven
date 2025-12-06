@@ -70,7 +70,7 @@
             </div>
             <div class="col-lg-6 align-self-end">
               <div class="hero-image wow fadeInUp" data-wow-delay=".5s">
-                <img src="{{ asset('assets/img/hero/hero-5/hero-img.svg') }}" alt="">
+                <img src="{{ asset('assets/img/hero/hero-5/hero-img.svg') }}" alt="At Pyraven, we build scalable, innovative solutions that drive business growth">
               </div>
             </div>
           </div>
@@ -213,7 +213,7 @@
           </div>
           <div class="col-xl-7 col-lg-6">
             <div class="about-image text-lg-right wow fadeInUp" data-wow-delay=".5s">
-              <img src="{{ asset('assets/img/about/about-4/about-img.svg') }}" alt="">
+              <img src="{{ asset('assets/img/about/about-4/about-img.svg') }}" alt="Meet our passionate team of developers, designers, and tech enthusiasts dedicated to building cutting-edge software solutions that empower businesses to thrive in the digital age.">
             </div>
           </div>
         </div>
@@ -240,7 +240,9 @@
               <div class="single-portfolio wow fadeInUp" data-wow-delay="{{ 0.2 + ($index * 0.1) }}s">
                 <div class="portfolio-image">
                   @if($project->hasMedia('project_media'))
+                  <a href="{{ $project->url }}" target="_blank">
                     <img src="{{ $project->getFirstMediaUrl('project_media') }}" alt="{{ $project->name }}" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
+                  </a>
                   @else
                     <div style="width: 100%; height: 250px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                       <i class="lni lni-code-alt" style="font-size: 64px; color: white; opacity: 0.8;"></i>
@@ -248,7 +250,9 @@
                   @endif
                 </div>
                <div class="portfolio-content mt-20">
-                 <h5 class="mb-10">{{ $project->name }}</h5>
+                <a href="{{ $project->url }}" target="_blank">
+                  <h5 class="mb-10">{{ $project->name }}</h5>
+                </a>
                  <p class="mb-15">{{ Str::limit(strip_tags($project->description), 120) }}</p>
                  @if($project->specifications && is_array($project->specifications) && count($project->specifications) > 0)
                    <div class="tags mt-3">
@@ -341,8 +345,9 @@
                       <i class="lni lni-phone"></i>
                     </div>
                     <div class="text">
-                      <p>+20 123 456 7890</p>
-                      <p>+20 123 456 7891</p>
+                      <a href="tel:{{ config('app.phone') }}">
+                        {{ config('app.phone') }}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -352,8 +357,9 @@
                       <i class="lni lni-envelope"></i>
                     </div>
                     <div class="text">
-                      <p>info@pyraven.com</p>
-                      <p>contact@pyraven.com</p>
+                      <a href="mailto:{{ config('app.email') }}">
+                        {{ config('app.email') }}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -392,12 +398,14 @@
               <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
                 <div class="client-logo wow fadeInUp text-center" data-wow-delay="{{ 0.1 + ($index * 0.05) }}s" style="padding: 15px;">
                   @if($project->hasMedia('project_logo'))
-                    <img src="{{ $project->getFirstMediaUrl('project_logo') }}" 
-                        alt="{{ $project->name }}" 
-                        title="{{ $project->name }}"
-                        style="max-width: 120px; max-height: 80px; object-fit: contain; filter: grayscale(100%); opacity: 0.6; transition: all 0.3s ease;"
-                        onmouseover="this.style.filter='grayscale(0%)'; this.style.opacity='1';"
-                        onmouseout="this.style.filter='grayscale(100%)'; this.style.opacity='0.6';">
+                    <a href="{{ $project->url }}" target="_blank">
+                      <img src="{{ $project->getFirstMediaUrl('project_logo') }}" 
+                          alt="{{ $project->name }}" 
+                          title="{{ $project->name }}"
+                          style="max-width: 120px; max-height: 80px; object-fit: contain; filter: grayscale(100%); opacity: 0.6; transition: all 0.3s ease;"
+                          onmouseover="this.style.filter='grayscale(0%)'; this.style.opacity='1';"
+                          onmouseout="this.style.filter='grayscale(100%)'; this.style.opacity='0.6';">
+                    </a>
                   @else
                     <div style="width: 120px; height: 80px; background-color: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
                       <span style="font-size: 12px; color: #999; text-align: center; padding: 10px;">{{ Str::limit($project->name, 20) }}</span>

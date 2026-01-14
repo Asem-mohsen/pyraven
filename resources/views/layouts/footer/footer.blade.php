@@ -17,13 +17,14 @@
           </div>
           <div class="col-xl-2 offset-xl-1 col-lg-2 col-md-6 col-sm-6">
             <div class="footer-widget wow fadeInUp" data-wow-delay=".3s">
-              <h6>Quick Link</h6>
+              <h6>About Us</h6>
               <ul class="links">
                 <li> <a href="{{ route('home') }}">Home</a> </li>
-                <li> <a href="#about">About</a> </li>
-                <li> <a href="#feature">Service</a> </li>
+                <li> <a href="{{ route('home') }}#about">About</a> </li>
+                <li> <a href="{{ route('mission') }}">Mission</a> </li>
+                <li> <a href="{{ route('vision') }}">Vision</a> </li>
                 {{-- <li> <a href="#testimonial">Testimonial</a> </li> --}}
-                <li> <a href="#contact">Contact</a> </li>
+                <li> <a href="{{ route('home') }}#contact">Contact</a> </li>
               </ul>
             </div>
           </div>
@@ -31,10 +32,11 @@
             <div class="footer-widget wow fadeInUp" data-wow-delay=".4s">
               <h6>Services</h6>
               <ul class="links">
-                <li> <a href="#feature">Web Design</a> </li>
-                <li> <a href="#feature">Web Development</a> </li>
-                <li> <a href="#feature">Seo Optimization</a> </li>
-                <li> <a href="#feature">Blog Writing</a> </li>
+                <li> <a href="{{ route('home') }}#feature">Service</a> </li>
+                <li> <a href="{{ route('home') }}#feature">Web Design</a> </li>
+                <li> <a href="{{ route('home') }}#feature">Web Development</a> </li>
+                <li> <a href="{{ route('home') }}#feature">Seo Optimization</a> </li>
+                <li> <a href="{{ route('home') }}#feature">Mobile App Development</a> </li>
               </ul>
             </div>
           </div>

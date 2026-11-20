@@ -1,0 +1,208 @@
+# ===========================================
+# LETSENCRYPT CHALLENGE FIX
+# ===========================================
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Allow Let's Encrypt to access the challenge
+    RewriteCond %{REQUEST_URI} ^/\.well-known/acme-challenge/
+    RewriteRule ^ - [L]
+</IfModule>
+
+# ===========================================
+# LARAVEL SECURITY ENHANCED .HTACCESS
+# ===========================================
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>
+
+# ===========================================
+# SECURITY HEADERS & PROTECTION
+# ===========================================
+
+# Prevent access to sensitive files and directories
+<FilesMatch "\.(env|htaccess|htpasswd|ini|log|sh|sql|conf|bak|backup|old|orig|save|swp|tmp)$">
+    Require all denied
+</FilesMatch>
+
+# Block access to hidden files and directories
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Block access to Laravel sensitive directories
+<IfModule mod_rewrite.c>
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor)/ - [F,L]
+    RewriteRule ^(artisan|composer\.(json|lock)|package\.(json|lock)|phpunit\.xml|\.env.*)$ - [F,L]
+</IfModule>
+
+# Block suspicious file extensions
+<FilesMatch "\.(php|phtml|php3|php4|php5|pl|py|jsp|asp|sh|cgi)$">
+    <RequireAll>
+        Require all granted
+        Require not expr "%{REQUEST_URI} =~ m#^/storage/#"
+        Require not expr "%{REQUEST_URI} =~ m#^/vendor/#"
+        Require not expr "%{REQUEST_URI} =~ m#^/bootstrap/#"
+    </RequireAll>
+</FilesMatch>
+
+# ===========================================
+# DIRECTORY BROWSING & INDEXING
+# ===========================================
+
+# Disable directory browsing
+Options -Indexes
+
+# Disable server signature
+ServerSignature Off
+
+# ===========================================
+# HOTLINKING PROTECTION
+# ===========================================
+
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?yourdomain\.com [NC]
+    RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|webp|svg|css|js|woff|woff2|ttf|eot)$ [NC]
+    RewriteRule \.(jpg|jpeg|png|gif|webp|svg|css|js|woff|woff2|ttf|eot)$ - [F,L]
+</IfModule>
+
+# ===========================================
+# BOT & MALICIOUS REQUEST FILTERING
+# ===========================================
+
+# Block suspicious user agents
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_USER_AGENT} (bot|crawler|spider|scraper|wget|curl|python|java|perl|ruby|php|shell|bash|sh|cmd|powershell) [NC]
+    RewriteCond %{HTTP_USER_AGENT} !(googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegram) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# Block common attack patterns
+<IfModule mod_rewrite.c>
+    # SQL Injection attempts
+    RewriteCond %{QUERY_STRING} (union|select|insert|delete|update|drop|create|alter|exec|execute|script|javascript|vbscript|onload|onerror) [NC]
+    RewriteRule .* - [F,L]
+    
+    # XSS attempts
+    RewriteCond %{QUERY_STRING} (<script|javascript:|vbscript:|onload=|onerror=|onclick=|onmouseover=) [NC]
+    RewriteRule .* - [F,L]
+    
+    # Path traversal attempts
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.\\|\.\.%2f|\.\.%5c|%2e%2e%2f|%2e%2e%5c) [NC]
+    RewriteRule .* - [F,L]
+    
+    # Command injection attempts
+    RewriteCond %{QUERY_STRING} (cmd=|command=|exec=|eval=|system|passthru|shell_exec|proc_open|popen) [NC]
+    RewriteRule .* - [F,L]
+    
+    # File inclusion attempts
+    RewriteCond %{QUERY_STRING} (file=|include=|require=|include_once|require_once) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# ===========================================
+# RATE LIMITING & REQUEST FILTERING
+# ===========================================
+
+# Block requests with suspicious headers
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP:X-Forwarded-For} (127\.0\.0\.1|localhost|0\.0\.0\.0) [NC]
+    RewriteRule .* - [F,L]
+    
+    # Block requests with no user agent
+    RewriteCond %{HTTP_USER_AGENT} ^$ [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# ===========================================
+# HTTPS REDIRECTION
+# ===========================================
+
+<IfModule mod_rewrite.c>
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Force www (optional - uncomment if needed)
+    # RewriteCond %{HTTP_HOST} !^www\. [NC]
+    # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ===========================================
+# CACHING HEADERS
+# ===========================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Static assets
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/eot "access plus 1 year"
+    
+    # HTML files (shorter cache)
+    ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# ===========================================
+# SECURITY HEADERS
+# ===========================================
+
+<IfModule mod_headers.c>
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options nosniff
+    
+    # Enable XSS protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Prevent clickjacking
+    Header always set X-Frame-Options DENY
+    
+    # Strict Transport Security (HSTS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Content Security Policy (adjust as needed)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com https://maps.googleapis.com https://cdn.datatables.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.datatables.net; font-src 'self' https://fonts.gstatic.com https://fonts.bunny.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com https://maps.googleapis.com; frame-ancestors 'none';"
+    
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Permissions Policy
+    Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=()"
+</IfModule>
+
+# ===========================================
+# LARAVEL ROUTING (PRESERVE ORIGINAL FUNCTIONALITY)
+# ===========================================
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
